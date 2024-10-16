@@ -3,10 +3,8 @@ from sqlalchemy.orm import Session
 from typing import Annotated
 from sqlalchemy import insert
 from slugify import slugify
-
+from app.schemas import CreateProduct
 from app.backend.db_depends import get_db
-from app.schemas import CreateCategory
-from app.models.category import Category
 from app.models.products import Product
 
 router = APIRouter(prefix='/products', tags=['products'])
@@ -23,10 +21,10 @@ async def get_products():
 
  
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_product(db: Annotated[Session, Depends(get_db)], create_category: CreateCategory):
-    db.execute(insert(Category).values(name=create_product.name,
+async def create_product(db: Annotated[Session, Depends(get_db)], create_product: CreateProduct):
+    await db.execute(insert(Product).values(name=create_product.name,
                                        slug=slugify(create_product.name)))
-    db.commit()
+    await db.commit()
     return {
         'status_code': status.HTTP_201_CREATED,
         'transaction': 'Successful'
