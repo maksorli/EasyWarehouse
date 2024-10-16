@@ -10,6 +10,4 @@ class CreateProduct(BaseModel):
 
 
 class CreateOrder(BaseModel):
-    name: str
-    date: datetime
     status: str

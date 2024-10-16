@@ -7,6 +7,6 @@ class Order(Base):
     __tablename__ = 'orders'
 
     id = Column(Integer, primary_key=True, index=True)
-    date = Column(DateTime, default=func.now())
+    created_at =  Column(DateTime, server_default=func.now()) 
     status = Column(String)
   

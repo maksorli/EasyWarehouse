@@ -16,8 +16,10 @@ async def get_products(db: Annotated[AsyncSession, Depends(get_db)]):
     return products.all()
 
 @router.get('/{product_id}')
-async def get_product(db: Annotated[AsyncSession, Depends(get_db)], product_id: int):
-    product = await db.scalar(select(Product).where(Product.id == product_id))
+async def get_product(db: Annotated[AsyncSession, Depends(get_db)], 
+                      product_id: int):
+    product = await db.scalar(select(Product).
+                              where(Product.id == product_id))
     if product is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -25,10 +27,10 @@ async def get_product(db: Annotated[AsyncSession, Depends(get_db)], product_id: 
         )
     
     return product
-
  
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_product(db: Annotated[AsyncSession, Depends(get_db)], create_product: CreateProduct):
+async def create_product(db: Annotated[AsyncSession, Depends(get_db)],
+                         create_product: CreateProduct):
     await db.execute(insert(Product).values(name=create_product.name,
                                        slug=slugify(create_product.name),
                                        stock=create_product.stock,
@@ -41,9 +43,11 @@ async def create_product(db: Annotated[AsyncSession, Depends(get_db)], create_pr
     }
 
 @router.put('/{product_id}')
-async def update_product(db: Annotated[AsyncSession, Depends(get_db)], product_id: int,
+async def update_product(db: Annotated[AsyncSession, Depends(get_db)], 
+                         product_id: int,
                          update_product_model: CreateProduct):
-    product_update = await db.scalar(select(Product).where(Product.id == product_id))
+    product_update = await db.scalar(select(Product).
+                                     where(Product.id == product_id))
     if product_update is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -65,9 +69,11 @@ async def update_product(db: Annotated[AsyncSession, Depends(get_db)], product_i
 
 
 @router.delete('/{product_id}')
-async def delete_product(db: Annotated[AsyncSession, Depends(get_db)], product_id: int):
+async def delete_product(db: Annotated[AsyncSession, Depends(get_db)], 
+                         product_id: int):
    
-    product_delete = await db.scalar(select(Product).where(Product.id == product_id))
+    product_delete = await db.scalar(select(Product).
+                                     where(Product.id == product_id))
     if product_delete is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
