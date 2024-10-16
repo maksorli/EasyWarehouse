@@ -12,5 +12,5 @@ class Product(Base):
     price = Column(Integer)
     stock = Column(Integer)
     slug = Column(String, unique=True, index=True)
-    is_active = Column(Boolean, default=True)
+     
  

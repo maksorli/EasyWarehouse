@@ -4,7 +4,7 @@ services:
     container_name: fastapi_app
     command: >
         bash -c "
-        alembic revision --autogenerate -m 'Apply migrations' && 
+        alembic downgrade base &&  
         alembic upgrade head && 
         uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     volumes:
