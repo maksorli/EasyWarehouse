@@ -20,7 +20,18 @@ async def get_orders(db: Annotated[AsyncSession, Depends(get_db)]):
     result = await db.scalars(select(Order).options(selectinload(Order.order_items)))  
     return result.all()
 
-
+@router.get("/{order_id}")
+async def get_order(order_id: int, db: Annotated[AsyncSession, Depends(get_db)]):
+    order = await db.scalar(
+        select(Order).options(selectinload(Order.order_items)).
+        where(Order.id == order_id)
+    )
+    
+    if order is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail="Order not found")
+    
+    return order
 @router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_order(db: Annotated[AsyncSession, Depends(get_db)], 
                        create_order: CreateOrder):

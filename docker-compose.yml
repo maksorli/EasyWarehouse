@@ -26,6 +26,20 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5433:5432"
+  
+  tests:
+    build: .
+    container_name: fastapi_tests
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+    command: >
+      bash -c "
+      alembic upgrade head &&
+      pytest tests/ --maxfail=1 --disable-warnings -v"
 
 volumes:
   postgres_data:
