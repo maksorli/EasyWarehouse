@@ -11,6 +11,5 @@ class Product(Base):
     description = Column(String)
     price = Column(Integer)
     stock = Column(Integer)
-    slug = Column(String, unique=True, index=True)
-     
+    order_items = relationship("OrderItem", back_populates="product")
  

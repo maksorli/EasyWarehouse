@@ -32,7 +32,6 @@ async def get_product(db: Annotated[AsyncSession, Depends(get_db)],
 async def create_product(db: Annotated[AsyncSession, Depends(get_db)],
                          create_product: CreateProduct):
     await db.execute(insert(Product).values(name=create_product.name,
-                                       slug=slugify(create_product.name),
                                        stock=create_product.stock,
                                        description=create_product.description,
                                        price=create_product.price))

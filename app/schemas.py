@@ -1,5 +1,15 @@
 from pydantic import BaseModel
-from datetime import datetime
+from typing import List
+from enum import Enum
+
+class OrderStatus(str, Enum):
+    IN_PROCESS = "в процессе"
+    SHIPPED = "отправлен"
+    DELIVERED = "доставлен"
+    CANCELLED = "отменён"
+
+class OrderUpdateStatus(BaseModel):
+    status: OrderStatus
 
 class CreateProduct(BaseModel):
     name: str
@@ -7,7 +17,11 @@ class CreateProduct(BaseModel):
     price: int
     stock: int
     
-
+class OrderItemCreate(BaseModel):
+    product_id: int   
+    quantity: int    
 
 class CreateOrder(BaseModel):
-    status: str
+    status: OrderStatus = OrderStatus.IN_PROCESS
+    items: List[OrderItemCreate]
+
