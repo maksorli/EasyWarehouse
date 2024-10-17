@@ -3,6 +3,7 @@
 
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat&logo=python)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue.svg)](https://www.postgresql.org/)
 ![Docker](https://img.shields.io/badge/Docker-20.10-blue?style=flat&logo=docker)
 ![alembic](https://img.shields.io/badge/alembic-1.13.3-green?style=flat&logo=python)
 ![fastapi-slim](https://img.shields.io/badge/fastapi--slim-0.115.2-blue?style=flat&logo=python)
@@ -14,7 +15,7 @@
  
 
 ## Описание проекта
-Данный проект представляет собой REST API для управления процессами на складе, разработанный с использованием FastAPI. API позволяет управлять товарами, складскими запасами и заказами
+Данный проект представляет собой асинхронное REST API для управления процессами на складе, разработанный с использованием FastAPI. API позволяет управлять товарами, складскими запасами и заказами
 
 ## Основные возможности
 ### Управление товарами:
